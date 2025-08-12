@@ -34,7 +34,12 @@ Abra no navegador: `http://localhost:5000`
 
 ---
 
-# Plano passo-a-passo das aulas
+## Dicas e resolução de problemas
+- Se `flask_wtf` reclamar de CSRF: confira se `SECRET_KEY` está definido (em `app/__init__.py`).
+- Se o Flask não reinicia após alterações: pare o servidor (Ctrl+C) e reinicie `python run.py` ou use `FLASK_DEBUG=1`/auto-reload.
+- Erros comuns: esquecer de ativar o venv; instalar dependências no Python errado (confirme `python --version`).
+
+---
 
 ## Aula 1 — Introdução ao Flask
 **Objetivo:** entender o que é backend e criar a rota mínima em Flask.
@@ -144,7 +149,7 @@ class NomeForm(FlaskForm):
 2. A rota `@app.route("/form", methods=["GET", "POST"])` em `app/routes.py` já usa `NomeForm()` e chama `form.validate_on_submit()`.
 3. Teste no navegador: acesse `http://localhost:5000/form`, preencha o nome e envie — deve aparecer a mensagem de confirmação (renderizada pela variável `mensagem` no template).
 
-4. **Tarefa prática:** adicione um campo `email` ao formulário (`forms.py`) com validador `DataRequired()` e `Email()` (importe `Email` de `wtforms.validators`). Atualize o template `form.html` para incluir o campo novo e exiba ambos após submissão.
+4. **Exercício 2:** adicione um campo `email` ao formulário (`forms.py`) com validador `DataRequired()` e `Email()` (importe `Email` de `wtforms.validators`). Atualize o template `form.html` para incluir o campo novo e exiba ambos após submissão.
 
 Exemplo (adição em `forms.py`):
 ```python
@@ -155,7 +160,7 @@ class NomeForm(FlaskForm):
     submit = SubmitField("Enviar")
 ```
 
-5. **Exercício 2** ao submeter, redirecione para a página inicial com `redirect(url_for('index'))` e passe uma mensagem flash com `flash("...")`. Veja como usar `get_flashed_messages()` no `base.html` para mostrar mensagens.
+5. **Exercício 3:** ao submeter, redirecione para a página inicial com `redirect(url_for('index'))` e passe uma mensagem flash com `flash("...")`. O `base.html` já está configurado para aceitar `get_flashed_messages()` e mostrar mensagens.
 
 ### Recapitulando até aqui
 - Formulário aparece em `GET /form`.
@@ -231,13 +236,4 @@ git commit -m "Aula1 - rotas e templates"
 git remote add origin https://github.com/SEU_USUARIO/NOME_REPO.git
 git push -u origin main
 ```
-
----
-
-## Dicas e resolução de problemas
-- Se `flask_wtf` reclamar de CSRF: confira se `SECRET_KEY` está definido (em `app/__init__.py`).
-- Se o Flask não reinicia após alterações: pare o servidor (Ctrl+C) e reinicie `python run.py` ou use `FLASK_DEBUG=1`/auto-reload.
-- Erros comuns: esquecer de ativar o venv; instalar dependências no Python errado (confirme `python --version`).
-
----
 

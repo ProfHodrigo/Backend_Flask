@@ -2,4 +2,13 @@
 {% block content %}
 <h2>Bem-vindo,</h2>
 <p>Esta é a página inicial da nossa disciplina Backend com Frameworks.</p>
+
+  <h2>{{ titulo or "Produtos" }}</h2>
+
+  {% for produto in produtos %}
+    {% include 'card.html' %}
+  {% else %}
+    <p>Nenhum produto encontrado.</p>
+  {% endfor %}
+
 {% endblock %}
