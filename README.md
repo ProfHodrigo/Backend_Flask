@@ -4,8 +4,7 @@ Projeto didático para as 3 primeiras aulas de Backend com Framework.
 
 ## Aulas
 1. Introdução ao Flask, rotas básicas.
-2. Templates e HTML dinâmico.
-3. Formulários e métodos HTTP.
+2. Templates, HTML dinâmico, Formulários e métodos HTTP.
 4. API REST com retorno JSON.
 
 ## Requisitos
