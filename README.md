@@ -1,6 +1,6 @@
 # Backend_Flask — Curso
 
-Projeto didático para as 4 primeiras aulas de backend com Flask.
+Projeto didático para as 3 primeiras aulas de Backend com Framework.
 
 ## Aulas
 1. Introdução ao Flask, rotas básicas.
