@@ -1,8 +1,12 @@
-# Backend_Flask — Curso (Aulas 1 a 3)
+# Backend_Flask — Curso
 
-Projeto didático focado nas **3 primeiras aulas** de backend com Flask: rotas, templates, formulários e API REST. Este README traz um passo a passo,com tarefas e exercícios.
+Projeto didático para as 4 primeiras aulas de backend com Flask.
 
----
+## Aulas
+1. Introdução ao Flask, rotas básicas.
+2. Templates e HTML dinâmico.
+3. Formulários e métodos HTTP.
+4. API REST com retorno JSON.
 
 ## Requisitos
 - Linux (Ubuntu/Debian recomendado)
