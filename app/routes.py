@@ -11,7 +11,7 @@ def index():
 def sobre():
     return render_template("about.html", title="Sobre o Projeto")
 
-# Aula 3 — Formulários
+# Aula 2 — Formulários
 @app.route("/form", methods=["GET", "POST"])
 def form():
     form = NomeForm()
@@ -21,12 +21,12 @@ def form():
         mensagem = f"Olá, {nome}! Formulário recebido com sucesso."
     return render_template("form.html", title="Formulário", form=form, mensagem=mensagem)
 
-# Aula 4 — API REST
+# Aula 3 — API REST
 @app.route("/api/dados")
 def api_dados():
     dados = [
-        {"id": 1, "nome": "Alice"},
-        {"id": 2, "nome": "Bob"},
-        {"id": 3, "nome": "Carlos"}
+        {"id": 1, "nome": "Ana Vitória"},
+        {"id": 2, "nome": "Anderson Freitas"},
+        {"id": 3, "nome": "Felipe Maia"}
     ]
     return jsonify(dados)
