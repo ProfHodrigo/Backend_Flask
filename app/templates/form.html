@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Formulário</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <p>
+        {{ form.nome.label }}<br>
+        {{ form.nome(size=30) }}
+    </p>
+    <p>{{ form.submit() }}</p>
+</form>
+
+{% if mensagem %}
+    <p><strong>{{ mensagem }}</strong></p>
+{% endif %}
+{% endblock %}
