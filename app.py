@@ -12,6 +12,7 @@ estoque = {
 
 # ---------------------------
 # ROTA GET - Listar todos os produtos
+# testar com curl http://127.0.0.1:5000/produtos
 # ---------------------------
 @app.route("/produtos", methods=["GET"])
 def listar_produtos():
@@ -21,6 +22,7 @@ def listar_produtos():
 
 # ---------------------------
 # ROTA POST - Adicionar um novo produto
+# testar com curl -X POST -H "Content-Type: application/json" -d '{"nome": "Monitor", "quantidade": 3}' http://127.0.0.1:5000/produtos
 # ---------------------------
 @app.route("/produtos", methods=["POST"])
 def adicionar_produto():
@@ -42,6 +44,7 @@ def adicionar_produto():
 
 # ---------------------------
 # ROTA PUT - Atualizar um produto existente
+# testar com curl -X PUT -H "Content-Type: application/json" -d '{"quantidade": 8}' http://127.0.0.1:5000/produtos/1
 # ---------------------------
 @app.route("/produtos/<int:produto_id>", methods=["PUT"])
 def atualizar_produto(produto_id):
@@ -61,6 +64,7 @@ def atualizar_produto(produto_id):
 
 # ---------------------------
 # ROTA DELETE - Remover um produto
+# testar com curl -X DELETE http://127.0.0.1:5000/produtos/2
 # ---------------------------
 @app.route("/produtos/<int:produto_id>", methods=["DELETE"])
 def deletar_produto(produto_id):
