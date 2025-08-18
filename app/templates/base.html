@@ -11,11 +11,24 @@
     <nav>
         <a href="{{ url_for('index') }}">Início</a> |
         <a href="{{ url_for('sobre') }}">Sobre</a> |
-        <a href="{{ url_for('form') }}">Formulário</a> |
-        <a href="{{ url_for('api_dados') }}">API</a>
+        <a href="{{ url_for('form') }}">Formulário Usuários</a> |
+        <a href="{{ url_for('listar_produtos') }}">Produtos</a> |
+        <a href="{{ url_for('novo_produto') }}">Novo Produto</a> |
+        <a href="{{ url_for('api_dados') }}">API Usuários</a> |
+        <a href="{{ url_for('api_produtos') }}">API Produtos</a>
     </nav>
 </header>
 <main>
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <div class="flash-messages">
+                {% for category, message in messages %}
+                    <div class="flash-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endwith %}
+    
     {% block content %}{% endblock %}
 </main>
 <footer>

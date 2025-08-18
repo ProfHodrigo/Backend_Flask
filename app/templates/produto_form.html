@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>{{ title }}</h2>
+<form method="POST">
+    {{ form.hidden_tag() }}
+    <div class="form-group">
+        {{ form.nome.label }}
+        {{ form.nome(class="form-control") }}
+        {% for error in form.nome.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.preco.label }}
+        {{ form.preco(class="form-control") }}
+        {% for error in form.preco.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.estoque.label }}
+        {{ form.estoque(class="form-control") }}
+        {% for error in form.estoque.errors %}
+            <span class="error">{{ error }}</span>
+        {% endfor %}
+    </div>
+    <div class="form-group">
+        {{ form.submit(class="btn btn-primary") }}
+    </div>
+</form>
+{% endblock %}
