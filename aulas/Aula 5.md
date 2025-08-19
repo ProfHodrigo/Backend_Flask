@@ -99,6 +99,12 @@ Esse código:
 # Exercícios
 
 1. Adicione um campo de descrição no modelo Produto. 
-2. Atualize o formulário (produto_form.html) para permitir preencher a descrição. 
-3. Exiba a descrição na listagem de produtos. 
-4. Na API, garanta que a descrição também apareça no JSON retornado.
+   * Atualize o formulário (produto_form.html) para permitir preencher a descrição. 
+   * Exiba a descrição na listagem de produtos. 
+   * Na API, garanta que a descrição também apareça no JSON retornado.
+   
+
+2. Padronize o `routes.py` de modo que o CRUD utilize GET, POST, PUT e DELETE
+   * Verifique quais rotas realizam as mesmas operações.
+   * Remova as rotas deplicadas.
+   * Atualize os arquivos html de acordo.
