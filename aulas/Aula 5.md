@@ -43,29 +43,29 @@ Esse modelo será usado em todas as operações de CRUD.
 
 Em `app/routes.py`, temos as seguintes rotas implementadas:
 
-* GET /produtos → Lista todos os produtos
+* GET `/produtos` → Lista todos os produtos
 
-* GET /produto/novo → Exibe formulário de criação
+* GET `/produto/novo` → Exibe formulário de criação
 
-* POST /produto/novo → Processa criação
+* POST `/produto/novo` → Processa criação
 
-* GET /produto/<id>/editar → Exibe formulário de edição
+* GET `/produto/<id>/editar` → Exibe formulário de edição
 
-* POST /produto/<id>/editar → Processa edição
+* POST `/produto/<id>/editar` → Processa edição
 
-* POST /produto/<id>/excluir → Exclui o produto
+* POST `/produto/<id>/excluir` → Exclui o produto
 
 Além disso, também temos uma API REST:
 
-* GET /api/produtos → Retorna lista de produtos em JSON
+* GET `/api/produtos` → Retorna lista de produtos em JSON
 
-* POST /api/produtos → Cria produto via JSON
+* POST `/api/produtos` → Cria produto via JSON
 
-* GET /api/produtos/<id> → Retorna produto específico
+* GET `/api/produtos/<id>` → Retorna produto específico
 
-* PUT /api/produtos/<id> → Atualiza produto via JSON
+* PUT `/api/produtos/<id>` → Atualiza produto via JSON
 
-* DELETE /api/produtos/<id> → Exclui produto
+* DELETE `/api/produtos/<id>` → Exclui produto
 
 ---
 
