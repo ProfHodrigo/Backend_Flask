@@ -86,16 +86,17 @@ pip install -r requirements.txt
 ```
 
 3. Crie e aplique as migrations:
+**Caso seu projeto já possua um arquivo app.db dentro da pasta app, delete-o**
 ```python
-flask db init
-flask db migrate -m "Initial migration"
-flask db upgrade
+flask db init # Só é necessário se seu projeto ainda não tiver a pasta migrations
+flask db migrate -m "Initial migration" # Só é necessário se seu projeto não tiver o arquivo app.db
+flask db upgrade # Só é necessário se seu projeto não tiver o arquivo app.db
+flask shell
 ```
 Isso cria o arquivo `app.db` (SQLite por padrão).
 
 4. Teste no shell do Flask:
 ```bash
-flask shell
 from app import db
 from app.models import Produto
 p = Produto(nome="Notebook", preco=4500.99, estoque=10)
@@ -108,7 +109,7 @@ Produto.query.all()
 1. Ative o ambiente virtual
 2. Crie o arquivo `app.db`
 3. Abra o shell interativo do Flask
-```python
+```bash
 flask shell # vai ficar com o seguinte símbolo >>>
 ```
 Esse shell já importa automaticamente app e db.
