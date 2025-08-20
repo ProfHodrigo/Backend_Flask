@@ -1,6 +1,7 @@
 from flask import Flask, json
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
+from dotenv import load_dotenv
 import os
 
 if not hasattr(json, 'JSONEncoder'):
@@ -18,5 +19,12 @@ app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
+
+# Carrega variáveis de ambiente do arquivo apropriado
+env_file = '.env.dev' if os.getenv('FLASK_ENV') != 'production' else '.env.prod'
+load_dotenv(env_file)
+
+app.config['DEBUG'] = os.getenv('DEBUG', 'False') == 'True'
+app.config['ENV'] = os.getenv('FLASK_ENV', 'production')
 
 from app import routes, models
