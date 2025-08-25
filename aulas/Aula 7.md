@@ -12,8 +12,8 @@
 - Diferenças e relação entre os dois.
 
 ## 2. Fluxo típico de autenticação
-1. O usuário envia credenciais (e.g., username e senha).
-2. O servidor valida as credenciais (comparando com dados armazenados, ex.: banco de dados).
+1. O usuário envia credenciais.
+2. O servidor valida as credenciais (comparando com dados no banco de dados).
 3. Em caso de sucesso, o servidor cria uma **sessão** ou emite um **token de acesso**.
 4. Em requisições subsequentes, o cliente apresenta essa sessão ou token para provar que está autenticado.
 
@@ -34,15 +34,22 @@ login_manager.init_app(app)
 
 ```
 
-- Criar ou alterar o modelo de Usuário: métodos `is_authenticated`, `get_id()` etc.
+- Criar ou alterar o modelo de Usuário.
 ```python
 from flask_login import UserMixin
+from werkzeug.security import generate_password_hash, check_password_hash
 
 class User(db.Model, UserMixin):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     password_hash = db.Column(db.String(128), nullable=False)
     role = db.Column(db.String(20), default='user')
+
+    def set_password(self, senha):
+        self.password_hash = generate_password_hash(senha)
+
+    def check_password(self, senha):
+        return check_password_hash(self.password_hash, senha)
 ```
 
 - Rotas:
@@ -83,8 +90,47 @@ def admin():
 - Decoradores customizados (ex.: `@roles_required('admin')`).
 - No modelo, armazenar atributo `role`, e nas rotas, verificar esse atributo.
 
-## 5. Exercícios
-- Criar fluxo de login/logout com páginas simples (templates e rotas).
+## 5. Entendendo Hashs e Senhas
+No passo 3, vimos o seguinte código no modelo:
+```python
+def set_password(self, senha):
+        self.password_hash = generate_password_hash(senha)
+```
+Para entender melhor o que ele faz: 
+- O generate_password_hash(senha) → converte a senha digitada em uma sequência longa e irreversível de caracteres, chamada hash.
+
+- Esse hash é o que vai para o banco (senha_hash).
+
+- Hash é unidirecional: você não consegue converter o hash de volta para a senha original.
+
+Exemplo simples em código:
+```python
+senha = "123456"
+hash = generate_password_hash(senha)
+print(hash)  
+# Saída: algo como "pbkdf2:sha256:260000$8H8r...$1a2b3c..."
+```
+- generate_password_hash do Flask usa PBKDF2 + SHA256 (ou outra função segura).
+
+- Ele adiciona um salt automaticamente — um valor aleatório que torna cada hash único, mesmo para senhas iguais.
+
+- Isso protege contra ataques de rainbow tables (tabelas pré-computadas de hashes).
+
+- Comparar senhas é seguro porque nunca armazenamos nem comparamos a senha original, apenas o hash.
+
+Mas ainda temos o seguinte código:
+```python
+def check_password(self, senha):
+    return check_password_hash(self.senha_hash, senha)
+```
+- Quando o usuário tenta logar, você chama check_password.
+- Isso compara a senha digitada com o hash armazenado, internamente aplicando o mesmo hash e salt.
+- Retorna True se a senha estiver correta, False caso contrário.
+- Assim, mesmo que alguém veja o hash no banco, não consegue descobrir a senha real.
+
+
+## 6. Exercícios
+- Criar um fluxo de login/logout com páginas simples (templates e rotas).
 - Testar acesso não autorizado e redirecionamentos.
 
 ---
