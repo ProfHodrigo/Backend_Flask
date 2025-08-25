@@ -27,6 +27,7 @@ migrate = Migrate(app, db)
 # Flask-Login
 login_manager = LoginManager(app)
 login_manager.login_view = "login"
+# login_manager.login_message = "Você precisa estar logado para acessar esta página."
 
 from app.models import Usuario
 
