@@ -1,11 +1,19 @@
 {% extends "base.html" %}
 {% block content %}
-<h2>Formulário</h2>
+<h2>Cadastro de Usuário</h2>
 <form method="POST">
     {{ form.hidden_tag() }}
     <p>
         {{ form.nome.label }}<br>
         {{ form.nome(size=30) }}
+    </p>
+    <p>
+        {{ form.email.label }}<br>
+        {{ form.email(size=30) }}
+    </p>
+    <p>
+        {{ form.senha.label }}<br>
+        {{ form.senha(size=30) }}
     </p>
     <p>{{ form.submit() }}</p>
 </form>

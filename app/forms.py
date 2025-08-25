@@ -1,10 +1,11 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, FloatField, IntegerField
-from wtforms.validators import DataRequired, Email, NumberRange
+from wtforms import StringField, SubmitField, PasswordField, FloatField, IntegerField
+from wtforms.validators import DataRequired, Email, NumberRange, Length
 
 class NomeForm(FlaskForm):
     nome = StringField("Nome", validators=[DataRequired()])
     email = StringField("E-mail", validators=[DataRequired(), Email()])
+    senha = PasswordField("Senha", validators=[DataRequired(), Length(min=6)])
     submit = SubmitField("Enviar")
 
 class ProdutoForm(FlaskForm):
