@@ -106,6 +106,18 @@ def api_perfil():
     }, 200
 ```
 
+Podemos testar essa rota com os seguintes comandos no terminal
+1. Linux
+```
+curl -H "Authorization: Bearer <token_aqui>" http://localhost:5000/api/perfil
+```
+
+2. Windows
+```
+$token = "token_aqui"
+Invoke-RestMethod -Uri "http://localhost:5000/api/perfil" -Method GET -Headers @{Authorization = "Bearer $token"}
+```
+
 ---
 
 ## 6. Exercícios
