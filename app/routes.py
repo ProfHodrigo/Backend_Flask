@@ -1,5 +1,7 @@
-from flask import render_template, request, jsonify, redirect, url_for, flash
+from flask import request, redirect, url_for, render_template, flash, jsonify
 from flask_login import login_user, logout_user, login_required, current_user
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
+from datetime import timedelta
 
 from app import app, db
 from app.forms import NomeForm, ProdutoForm
@@ -147,6 +149,17 @@ def login():
         if usuario and usuario.check_password(senha):
             login_user(usuario)
             flash("Login realizado com sucesso!", "success")
+
+# Aula 8 - Token JWT
+            # Criação do token JWT (expira em 15m)
+            access_token = create_access_token(
+                identity=str(usuario.id),
+                expires_delta=timedelta(minutes=15)
+            )
+
+            # Guarda em session/cookie e mostra no front
+            flash(f"Token JWT gerado (válido por 15m): {access_token}", "info")
+
             return redirect(url_for("index"))
         else:
             flash("Credenciais inválidas", "danger")
@@ -165,3 +178,20 @@ def logout():
 @login_required
 def perfil():
     return render_template("perfil.html", title="Perfil", usuario=current_user)
+
+@app.route("/api/perfil", methods=["GET"])
+@jwt_required()
+def api_perfil():
+    user_id = get_jwt_identity()
+    usuario = Usuario.query.get(user_id)
+
+    if not usuario:
+        return {"msg": "Usuário não encontrado"}, 404
+
+    return {
+        "id": usuario.id,
+        "nome": usuario.nome,
+        "email": usuario.email
+    }, 200
+
+

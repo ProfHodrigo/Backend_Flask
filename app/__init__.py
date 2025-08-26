@@ -2,6 +2,7 @@ from flask import Flask, json
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask_login import LoginManager
+from flask_jwt_extended import JWTManager
 from dotenv import load_dotenv
 import os
 
@@ -11,6 +12,8 @@ if not hasattr(json, 'JSONEncoder'):
 
 app = Flask(__name__, template_folder="templates", static_folder="static")
 app.config['SECRET_KEY'] = os.getenv('SECRET_KEY', 'dev-secret-key')
+app.config['JWT_SECRET_KEY'] = os.getenv("JWT_SECRET_KEY", "jwt-secret-dev")
+jwt = JWTManager(app)
 
 # Database configuration
 basedir = os.path.abspath(os.path.dirname(__file__))

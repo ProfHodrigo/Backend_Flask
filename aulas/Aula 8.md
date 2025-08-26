@@ -64,7 +64,7 @@ jwt = JWTManager(app)
 
 ## 4. Criando rota de login que gera JWT
 ``` python
-from flask_jwt_extended import create_access_token
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 from datetime import timedelta
 
 @app.route("/api/login", methods=["POST"])
@@ -88,16 +88,22 @@ def api_login():
 
 ## 5. Protegendo rotas com JWT
 ``` python
-from flask_jwt_extended import jwt_required, get_jwt_identity
+from flask_jwt_extended import create_access_token, jwt_required, get_jwt_identity
 
 @app.route("/api/perfil", methods=["GET"])
 @jwt_required()
 def api_perfil():
-    identidade = get_jwt_identity()  # dicionário enviado no identity
-    return jsonify({
-        "mensagem": "Acesso autorizado",
-        "usuario": identidade
-    })
+    user_id = get_jwt_identity()
+    usuario = Usuario.query.get(user_id)
+
+    if not usuario:
+        return {"msg": "Usuário não encontrado"}, 404
+
+    return {
+        "id": usuario.id,
+        "nome": usuario.nome,
+        "email": usuario.email
+    }, 200
 ```
 
 ---
