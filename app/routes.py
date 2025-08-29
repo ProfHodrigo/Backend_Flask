@@ -7,12 +7,17 @@ from app import app, db
 from app.forms import NomeForm, ProdutoForm
 from app.models import Produto, Usuario
 
+#Aula 9 - Rotas ajustadas com as devidas autenticações
+
 # Aula 1 — Introdução e primeira rota
 @app.route("/")
 def index():
+    if not current_user.is_authenticated:
+        return redirect(url_for("login"))
     return render_template("index.html", title="Página Inicial")
 
 @app.route("/sobre")
+@login_required
 def sobre():
     return render_template("about.html", title="Sobre o Projeto")
 
@@ -31,6 +36,9 @@ def form():
 # Aula 7 — Autenticação e Autorização
 @app.route("/form", methods=["GET", "POST"])
 def form():
+    if current_user.is_authenticated:
+        return redirect(url_for("index"))
+    
     form = NomeForm()
     mensagem = None
     if form.validate_on_submit():
@@ -53,6 +61,7 @@ def form():
 
 # Aula 3 — API REST
 @app.route("/api/dados")
+@jwt_required()
 def api_dados():
     dados = [
         {"id": 1, "nome": "Ana Vitória"},
@@ -63,11 +72,13 @@ def api_dados():
 
 # Aula 4 - CRUD com banco de dados
 @app.route("/produtos")
+@login_required
 def listar_produtos():
     produtos = Produto.query.all()
     return render_template("produtos.html", title="Lista de Produtos", produtos=produtos)
 
 @app.route("/produto/novo", methods=["GET", "POST"])
+@login_required
 def novo_produto():
     form = ProdutoForm()
     if form.validate_on_submit():
@@ -83,6 +94,7 @@ def novo_produto():
     return render_template("produto_form.html", title="Novo Produto", form=form)
 
 @app.route("/produto/<int:id>/editar", methods=["GET", "POST"])
+@login_required
 def editar_produto(id):
     produto = Produto.query.get_or_404(id)
     form = ProdutoForm(obj=produto)
@@ -96,6 +108,7 @@ def editar_produto(id):
     return render_template("produto_form.html", title="Editar Produto", form=form)
 
 @app.route("/produto/<int:id>/excluir", methods=["POST"])
+@login_required
 def excluir_produto(id):
     produto = Produto.query.get_or_404(id)
     db.session.delete(produto)
@@ -105,6 +118,7 @@ def excluir_produto(id):
 
 # Aula 5 - API com banco de dados
 @app.route("/api/produtos", methods=["GET", "POST"])
+@jwt_required()
 def api_produtos():
     if request.method == "POST":
         data = request.get_json()
@@ -121,6 +135,7 @@ def api_produtos():
     return jsonify([produto.to_dict() for produto in produtos])
 
 @app.route("/api/produtos/<int:id>", methods=["GET", "PUT", "DELETE"])
+@jwt_required()
 def api_produto(id):
     produto = Produto.query.get_or_404(id)
     
@@ -142,27 +157,28 @@ def api_produto(id):
 # Aula 7 - Nova rota de login
 @app.route("/login", methods=["GET", "POST"])
 def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("index"))
+
     if request.method == "POST":
         email = request.form["email"]
         senha = request.form["senha"]
         usuario = Usuario.query.filter_by(email=email).first()
+
         if usuario and usuario.check_password(senha):
             login_user(usuario)
             flash("Login realizado com sucesso!", "success")
 
-# Aula 8 - Token JWT
-            # Criação do token JWT (expira em 15m)
             access_token = create_access_token(
                 identity=str(usuario.id),
                 expires_delta=timedelta(minutes=15)
             )
-
-            # Guarda em session/cookie e mostra no front
             flash(f"Token JWT gerado (válido por 15m): {access_token}", "info")
 
             return redirect(url_for("index"))
         else:
             flash("Credenciais inválidas", "danger")
+
     return render_template("login.html", title="Login")
 
 # Aula 7 - Nova rota de logout
@@ -179,6 +195,8 @@ def logout():
 def perfil():
     return render_template("perfil.html", title="Perfil", usuario=current_user)
 
+
+# Aula 8 - Rota protegida com JWT
 @app.route("/api/perfil", methods=["GET"])
 @jwt_required()
 def api_perfil():
