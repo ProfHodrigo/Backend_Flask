@@ -9,6 +9,10 @@ Projeto didático para as 3 primeiras aulas de Backend com Framework.
 4. Persistência de dados e modelagem com SQLAlchemy.
 5. CRUD completo com banco de dados.
 6. Migrations e deploy para produção.
+7. Autenticação e Autorização
+8. Geração e Validação de Tokens JWT
+9. Passo-a-passo para configuração da aplicação
+10. Revisão para a Avaliação
 
 ## Requisitos
 - Linux (Ubuntu/Debian recomendado)
