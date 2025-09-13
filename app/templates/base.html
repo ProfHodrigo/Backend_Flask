@@ -2,48 +2,18 @@
 <html lang="pt-BR">
 <head>
     <meta charset="utf-8">
-    <title>{{ title or "Flask App" }}</title>
+    <title>{{ title or "API Aula 8" }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
 <header>
-    <h1>Curso Backend com Flask</h1>
-    <nav>
-        {% if current_user.is_authenticated %}
-        <span>Olá, {{ current_user.nome }}!</span> |
-        <a href="{{ url_for('index') }}">Início</a> |
-        <a href="{{ url_for('perfil') }}">Perfil</a> |
-        
-        <a href="{{ url_for('listar_produtos') }}">Produtos</a> |
-        <a href="{{ url_for('novo_produto') }}">Novo Produto</a> |
-        
-        <a href="{{ url_for('sobre') }}">Sobre</a> |
-        
-        <a href="{{ url_for('api_dados') }}">API Usuários</a> |
-        <a href="{{ url_for('api_produtos') }}">API Produtos</a> |
-
-        <a href="{{ url_for('logout') }}">Logout</a>
-        {% else %}
-            <a href="{{ url_for('form') }}">Criar conta</a>
-        {% endif %}
-    </nav>
+    <h1>API com JWT — Aula 8</h1>
 </header>
-
 <main>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-            <div class="flash-messages">
-                {% for category, message in messages %}
-                    <div class="flash-{{ category }}">{{ message }}</div>
-                {% endfor %}
-            </div>
-        {% endif %}
-    {% endwith %}
-    
     {% block content %}{% endblock %}
 </main>
 <footer>
-    <p>Material didático - Flask</p>
+    <p>Material didático - Flask (Aula 8)</p>
 </footer>
 </body>
 </html>
