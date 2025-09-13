@@ -1,6 +1,6 @@
 """
 Aula 8 — Configuração mínima para API com JWT.
-- Flask app enxuto
+- Flask app
 - SQLAlchemy para persistir usuários
 - JWT para autenticar e proteger rotas da API
 - python-dotenv para carregar variáveis de ambiente (.env.dev / .env.prod)
