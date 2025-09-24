@@ -3,3 +3,8 @@ __pycache__/
 *.pyc
 instance/
 .env.dev
+/.idea/backend_flask.iml
+/.idea/misc.xml
+/.idea/inspectionProfiles/profiles_settings.xml
+/.idea/inspectionProfiles/Project_Default.xml
+/.idea/vcs.xml
