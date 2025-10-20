@@ -118,7 +118,6 @@ def excluir_produto(id):
 
 # Aula 5 - API com banco de dados
 @app.route("/api/produtos", methods=["GET", "POST"])
-@jwt_required()
 def api_produtos():
     if request.method == "POST":
         data = request.get_json()
